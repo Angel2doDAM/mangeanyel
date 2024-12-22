@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+        <!--<record model="ir.ui.view" id="manageanyel.devs_partner_tree">
+            <field name="name">manage devs tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                   <field name="technologies"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="manageanyel.devs_partner_form">
+            <field name="name">manage devs form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="technologies"></field>
+                    </group>
+                </form>
+            </field>
+        </record>
+-->
+
+        <record model="ir.actions.act_window" id="manageanyel.action_developer_window">
+            <field name="name">manage developer window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Devs" id="manageanyel.menu_1_devs_list" parent="manageanyel.menu_1" action="manage.action_developer_window" />
+
+    </data>
+</odoo>

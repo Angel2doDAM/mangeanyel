@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manageanyel_task,manageanyel.task,model_manageanyel_task,base.group_user,1,1,1,1
+access_manageanyel_sprint,manageanyel.sprint,model_manageanyel_sprint,base.group_user,1,1,1,1
+access_manageanyel_project,manageanyel.project,model_manageanyel_project,base.group_user,1,1,1,1
+access_manageanyel_history,manageanyel.history,model_manageanyel_history,base.group_user,1,1,1,1
+access_manageanyel_technology,manageanyel.technology,model_manageanyel_technology,base.group_user,1,1,1,1
+

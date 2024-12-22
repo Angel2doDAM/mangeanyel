@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!-- Vista Tree -->
+        <record model="ir.ui.view" id="vista_manageanyel_sprint_tree">
+            <field name="name">vista_manageanyel_sprint_tree</field>
+            <field name="model">manageanyel.sprint</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="duration"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="project_id"/>
+                    <field name="tasks_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista Form -->
+        <record id="vista__manageanyel_sprint_form" model="ir.ui.view">
+            <field name="name">vista__manageanyel_sprint_form</field>
+            <field name="model">manageanyel.sprint</field>
+            <field name="arch" type="xml">
+                <form string="formulario_sprint">
+                    <sheet>
+                        <group name="group_top">
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="duration"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="project_id"/>
+                            <field name="tasks_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Gestión acciones -->
+        <record model="ir.actions.act_window" id="accion_manageanyel_sprint_form">
+            <field name="name">Listado de Sprint</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">manageanyel.sprint</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+          Sprint
+                </p>
+                <p> Click <strong> 'Crear' </strong> para añadir nuevos elementos
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Manage de Angel Mansilla" id="menu_manage_raiz"/>
+
+        <menuitem name="Management" id="Management" parent="menu_manage_raiz"/>
+
+        <!-- acciones -->
+        <menuitem name="Sprint" id="menu_manageanyel_sprints" parent="Management" action="accion_manageanyel_sprint_form"/>
+
+
+    </data>
+</odoo>
