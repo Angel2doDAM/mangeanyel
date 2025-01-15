@@ -4,42 +4,44 @@ from odoo import models, fields, api
 import datetime
 
 
-class task(models.Model):
-    _name = "manageanyel.task"
-    _description = "manageanyel.task"
+class Task(models.Model):
+    _name = 'manageanyel.task'
+    _description = 'manageanyel.task'
+
+    name = fields.Char(string="Nombre", required=True)
+    description = fields.Text(string="Descripción")
+    start_date = fields.Datetime(string="Fecha de inicio")
+    end_date = fields.Datetime(string="Fecha de fin")
+    is_paused = fields.Boolean(string="¿Paused?")
+    sprint_id = fields.Many2one("manageanyel.sprint", string="Sprint")
+    history_id2 = fields.Many2one("manageanyel.history", string="History", required=True)
+
+    # Campos de estado y estimación
+    state = fields.Selection([
+        ('not_started', 'No iniciada'),
+        ('in_progress', 'En progreso'),
+        ('pending_review', 'Pendiente de revisión'),
+        ('completed', 'Finalizada')
+    ], default='not_started', string="Estado de la Tarea")
+
+    estimated_time = fields.Float(string="Tiempo Estimado (horas)", help="Tiempo estimado en horas")
+    actual_time_spent = fields.Float(string="Tiempo Real Invertido (horas)", help="Tiempo real invertido en horas")
+
+    # Relación con las subtareas
+    parent_task_id = fields.Many2one('manageanyel.task', string="Tarea Principal", ondelete='cascade')
+    subtask_ids = fields.One2many('manageanyel.task', 'parent_task_id', string="Subtareas")
 
     code = fields.Char(string="Código", compute="_get_code")
-    name = fields.Char(
-        string="Nombre", readonly=False, required=True, help="Introduzca el nombre"
-    )
-    description = fields.Text(string="Descripción")
-    start_date = fields.Datetime(string="fecha Inicio")
-    end_date = fields.Datetime(string="fecha Fin")
-    is_paused = fields.Boolean(string="Pausado")
-
-    sprint_id = fields.Many2one(
-        "manageanyel.sprint",
-        string="Sprint",
-        # required=True,
-        ondelete="cascade",
-        compute="_get_sprint",
-        store=True,
-    )
-
-    history_id = fields.Many2one(
-        "manageanyel.history", string="Historias", required=True, ondelete="cascade"
-    )
-
-    technologys_id = fields.Many2many(
-        comodel_name="manageanyel.technology",
-        relation="technology_task",
-        colum1="technologys_ids",
-        colum2="tasks_ids",
-    )
 
     def _get_code(self):
         for task in self:
             task.code = "TASK_" + str(task.id)
+
+    @api.depends('estimated_time', 'actual_time_spent')
+    def _get_time_comparison(self):
+        for task in self:
+            if task.actual_time_spent > task.estimated_time:
+                task.state = 'completed'
 
     @api.depends("code")
     def _get_sprint(self):
@@ -106,7 +108,7 @@ class project(models.Model):
     historys_id = fields.One2many(
         string="Historias",
         comodel_name="manageanyel.history",
-        inverse_name="project_id",X
+        inverse_name="project_id",
     )
 
 

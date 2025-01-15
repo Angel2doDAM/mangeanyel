@@ -6,35 +6,49 @@
             <field name="model">manageanyel.task</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-                    <field name="is_paused"/>
-                    <field name="sprint_id"/>
-                    <field name="history_id"/>
-                    <field name="technologys_id"/>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="is_paused" />
+                    <field name="state" />
+                    <field name="estimated_time" />
+                    <field name="actual_time_spent" />
+                    <field name="parent_task_id" />
                 </tree>
             </field>
         </record>
 
         <!-- Vista Form -->
-        <record id="vista__manageanyel_task_form" model="ir.ui.view">
-            <field name="name">vista__manageanyel_task_form</field>
+        <record model="ir.ui.view" id="vista_manageanyel_task_form">
+            <field name="name">vista_manageanyel_task_form</field>
             <field name="model">manageanyel.task</field>
             <field name="arch" type="xml">
-                <form string="formulario_task">
+                <form string="Formulario de Tarea">
                     <sheet>
                         <group name="group_top">
-                            <field name="name"/>
-                            <field name="description"/>
-                            <field name="start_date"/>
-                            <field name="end_date"/>
-                            <field name="is_paused"/>
-                            <field name="sprint_id"/>
-                            <field name="history_id"/>
-                            <field name="technologys_id"/>
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="is_paused" />
+                            <field name="state" />
+                            <field name="estimated_time" />
+                            <field name="actual_time_spent" />
+                            <field name="parent_task_id" />
                         </group>
+                        <notebook>
+                            <page string="Subtareas">
+                                <field name="subtask_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" />
+                                        <field name="state" />
+                                        <field name="estimated_time" />
+                                        <field name="actual_time_spent" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -48,20 +62,20 @@
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-          Task
+                    Task
                 </p>
-                <p> Click <strong> 'Crear' </strong> para añadir nuevos elementos
-                </p>
+                <p> Click <strong> 'Crear' </strong> para añadir nuevos elementos </p>
             </field>
         </record>
 
-        <menuitem name="Manage de Angel Mansilla" id="menu_manage_raiz"/>
+        <menuitem name="Manage de Angel Mansilla" id="menu_manage_raiz" />
 
 
-        <menuitem name="Management" id="Management" parent="menu_manage_raiz"/>
+        <menuitem name="Management" id="Management" parent="menu_manage_raiz" />
 
         <!-- acciones -->
-        <menuitem name="Task" id="menu_manageanyel_tasks" parent="Management" action="accion_manageanyel_task_form"/>
+        <menuitem name="Task" id="menu_manageanyel_tasks" parent="Management"
+            action="accion_manageanyel_task_form" />
 
 
     </data>
